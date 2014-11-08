@@ -13,23 +13,23 @@ public class MConnection
 	public bool reflection = false;
 	public MNode terminalNode;
 
-	public MConnection(MNode t, Vector3 pos, Quaternion rot, Vector3 sm, bool r)
+	public MConnection(MNode _target, Vector3 _position, Quaternion _rotation, Vector3 _scaleModifier, bool _reflection)
 	{
-		target = t;
-		position = pos;
-		rotation = rot;
-		scaleModifier = sm;
-		reflection = r;
+		target = _target;
+		position = _position;
+		rotation = _rotation;
+		scaleModifier = _scaleModifier;
+		reflection = _reflection;
 		terminalNode = null;
 	}
 
-	public MConnection(MNode t, Vector3 pos, Quaternion rot, Vector3 sm, bool r, MNode tn)
+	public MConnection(MNode _target, Vector3 _position, Quaternion _rotation, Vector3 _scaleModifier, bool _reflection, MNode _terminalNode)
 	{
-		target = t;
-		position = pos;
-		rotation = rot;
-		scaleModifier = sm;
-		reflection = r;
-		terminalNode = tn;
+		target = _target;
+		position = _position;
+		rotation = _rotation;
+		scaleModifier = _scaleModifier;
+		reflection = _reflection;
+		terminalNode = _terminalNode;
 	}
 }
