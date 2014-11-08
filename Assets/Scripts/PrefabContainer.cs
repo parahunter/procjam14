@@ -3,8 +3,8 @@ using System.Collections;
 
 public class PrefabContainer : MonoBehaviour 
 {
-	public GameObject ThrusterPrefab;
-	public GameObject BoxPrefab;
+	public GameObject ThrusterAppendage;
+	public GameObject StaticAppendage;
 	
 	public static PrefabContainer instance
 	{
@@ -16,10 +16,5 @@ public class PrefabContainer : MonoBehaviour
 	void Awake () 
 	{
 		instance = this;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 }

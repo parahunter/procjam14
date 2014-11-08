@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class MNode
+public abstract class MNode
 {
 	//Morphology Node
 
@@ -23,20 +23,20 @@ public class MNode
 		connections.Add(c);
 	}
 
-	public static void SpawnMorphology(MNode rootNode, Vector3 pos, Quaternion rot, Vector3 scaleModifier, GameObject prefab, GameObject parent = null)
+	public abstract GameObject GetPrefab();
+
+	public static void SpawnMorphology(MNode rootNode, Vector3 pos, Quaternion rot, Vector3 scaleModifier, GameObject parent = null)
 	{
 		MNode thisNode = rootNode;
-		GameObject thisGo = (GameObject)GameObject.Instantiate(prefab, pos, Quaternion.identity);
+		GameObject thisGo = (GameObject)GameObject.Instantiate(rootNode.GetPrefab(), pos, Quaternion.identity);
 
 		thisGo.transform.localScale = new Vector3(rootNode.scale.x * scaleModifier.x,
-		                                          rootNode.scale.y * scaleModifier.y,
-		                                          rootNode.scale.z * scaleModifier.z);
-
+												  rootNode.scale.y * scaleModifier.y,
+												  rootNode.scale.z * scaleModifier.z);
+		              
 		if(parent != null)
 		{
-			thisGo.transform.parent = parent.transform;
-			thisGo.transform.localPosition = pos;
-			thisGo.transform.localRotation = rot;
+			thisGo.GetComponent<Appendage>().Attach(parent.transform, pos, rot);
 		}
 
 		foreach(MConnection mc in thisNode.connections)
@@ -53,16 +53,16 @@ public class MNode
 				if(rootNode.iterations < rootNode.recursiveLimit)
 				{
 					rootNode.iterations++;
-					MNode.SpawnMorphology(mc.target, mc.position, mc.rotation, scaleFactor*inverse, prefab, thisGo);
+					MNode.SpawnMorphology(mc.target, mc.position, mc.rotation, scaleFactor*inverse, thisGo);
 				}
 				else if(mc.terminalNode != null)
 				{
-					MNode.SpawnMorphology(mc.terminalNode, mc.position, mc.rotation, scaleFactor*inverse, prefab, thisGo);
+					MNode.SpawnMorphology(mc.terminalNode, mc.position, mc.rotation, scaleFactor*inverse, thisGo);
 				}
 			}
 			else
 			{
-				MNode.SpawnMorphology(mc.target, mc.position, mc.rotation, scaleFactor*inverse, prefab, thisGo);
+				MNode.SpawnMorphology(mc.target, mc.position, mc.rotation, scaleFactor*inverse, thisGo);
 			}
 		}
 	}

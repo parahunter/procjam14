@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Appendage : MonoBehaviour {
+public class Appendage : MonoBehaviour 
+{
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	public virtual void Attach(Transform parent, Vector3 pos, Quaternion rot)
+	{
+		transform.parent = parent.transform;
+		transform.localPosition = pos;
+		transform.localRotation = rot;
+		
+		FixedJoint joint = gameObject.AddComponent<FixedJoint>();
+		joint.connectedBody = parent.rigidbody;
 	}
 }
