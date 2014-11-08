@@ -12,9 +12,9 @@ public class MorphologyTester : MonoBehaviour {
 		MNode body = new MNode(Vector3.one, 2);
 		MNode limb = new MNode(new Vector3(5, 0.5f, 0.5f), 1);
 		body.AddConnection(new MConnection(limb, Vector3.one, Quaternion.Euler(Vector3.up * 45), Vector3.one, false));
-		body.AddConnection(new MConnection(body, Vector3.right, Quaternion.Euler(Vector3.up * 10), Vector3.one*0.5f, true, limb));
-
-		//Spawn the tree
+		body.AddConnection(new MConnection(body, Vector3.forward, Quaternion.Euler(Vector3.up * 10), Vector3.one*0.5f, false, limb));
+		
+		//Spawn the tree0
 		MNode.SpawnMorphology(body, Vector3.zero, Quaternion.identity, Vector3.one, prefab);
 	
 	}

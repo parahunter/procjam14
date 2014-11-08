@@ -41,23 +41,28 @@ public class MNode
 
 		foreach(MConnection mc in thisNode.connections)
 		{
-			int inverse = mc.reflection?-1:1;
+			int inverse = mc.reflection ? -1 : 1;
+			
+			Vector3 scaleFactor = new Vector3(scaleModifier.x * mc.scaleModifier.x,
+											  scaleModifier.y * mc.scaleModifier.y,
+											  scaleModifier.z * mc.scaleModifier.z);
+			
 			//If target is itself add one to iterations var. If more than recursivelimit spawn the terminalNode if != null
-			if(mc.target == rootNode)			{
-
+			if(mc.target == rootNode)			
+			{
 				if(rootNode.iterations < rootNode.recursiveLimit)
 				{
 					rootNode.iterations++;
-					MNode.SpawnMorphology(mc.target, mc.position, mc.rotation, mc.scaleModifier*inverse, prefab, thisGo);
+					MNode.SpawnMorphology(mc.target, mc.position, mc.rotation, scaleFactor*inverse, prefab, thisGo);
 				}
 				else if(mc.terminalNode != null)
 				{
-					MNode.SpawnMorphology(mc.terminalNode, mc.position, mc.rotation, mc.scaleModifier*inverse, prefab, thisGo);
+					MNode.SpawnMorphology(mc.terminalNode, mc.position, mc.rotation, scaleFactor*inverse, prefab, thisGo);
 				}
 			}
 			else
 			{
-				MNode.SpawnMorphology(mc.target, mc.position, mc.rotation, mc.scaleModifier*inverse, prefab, thisGo);
+				MNode.SpawnMorphology(mc.target, mc.position, mc.rotation, scaleFactor*inverse, prefab, thisGo);
 			}
 		}
 	}
