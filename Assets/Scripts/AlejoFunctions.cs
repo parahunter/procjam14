@@ -20,6 +20,12 @@ public class AlejoFunctions : MonoBehaviour {
 	
 	}
 
+	void PositionChildInSurface(GameObject child, GameObject parent, Vector3 anchor)
+	{
+		//parent.transform.GetChild[0];
+	}
+
+
 	Vector3 SurfacePoint(GameObject root, Vector3 anchor)
 	{
 		Collider thisCollider = root.GetComponent<Collider>();
