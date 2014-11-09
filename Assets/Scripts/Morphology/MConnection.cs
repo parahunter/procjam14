@@ -12,8 +12,10 @@ public class MConnection
 	public Vector3 scaleModifier;
 	public bool reflection = false;
 	public MNode terminalNode;
-
-	public MConnection(MNode _target, Vector3 _position, Quaternion _rotation, Vector3 _scaleModifier, bool _reflection)
+	public int recursiveLimit = 0; //How many times the node can spawn itself
+	public int iterations = 0;
+	
+	public MConnection(MNode _target, Vector3 _position, Quaternion _rotation, Vector3 _scaleModifier, bool _reflection, int recursiveLimit)
 	{
 		target = _target;
 		position = _position;
@@ -21,6 +23,12 @@ public class MConnection
 		scaleModifier = _scaleModifier;
 		reflection = _reflection;
 		terminalNode = null;
+		this.recursiveLimit = recursiveLimit;
+	}
+	
+	public MConnection MakeCopy()
+	{
+		return new MConnection(target, -position, rotation, -scaleModifier, false, recursiveLimit);
 	}
 
 	public MConnection(MNode _target, Vector3 _position, Quaternion _rotation, Vector3 _scaleModifier, bool _reflection, MNode _terminalNode)

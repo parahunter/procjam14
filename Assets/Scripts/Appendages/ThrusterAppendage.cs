@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ThrusterAppendage : Appendage
 {
-	public int keyMapping = 0;
+	public int button = 0;
 	
 	public float baseForce = 50;
 	
@@ -13,13 +13,7 @@ public class ThrusterAppendage : Appendage
 	// Use this for initialization
 	void Start () 
 	{
-		switch(keyMapping)
-		{
-			case 0:
-				InputManager.instance.upKeyDown += OnKeyDown;
-				InputManager.instance.upKeyUp += OnKeyUp;
-				break;
-		}
+		AssignButton(OnKeyDown, OnKeyUp, button);
 		
 		particles.enableEmission = false;
 	}

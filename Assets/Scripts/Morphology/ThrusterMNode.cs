@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ThrusterMNode : MNode 
 {
-	public ThrusterMNode(Vector3 _scale, int _recursiveLimit) : base(_scale, _recursiveLimit)
+	public ThrusterMNode(Vector3 _scale) : base(_scale)
 	{
 	
 	}

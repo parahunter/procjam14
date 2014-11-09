@@ -7,16 +7,18 @@ public class MorphologyTester : MonoBehaviour
 	void Start()
 	{
 		//Defining a Morphology tree manually using Nodes and Connections
-		StaticMNode body = new StaticMNode(Vector3.one, 6);
-		ThrusterMNode limb = new ThrusterMNode(new Vector3(5, 0.5f, 0.5f), 1);
-		body.AddConnection(new MConnection(limb, Vector3.one, Quaternion.Euler(Vector3.up * 45), Vector3.one, false));
-		body.AddConnection(new MConnection(body, Vector3.forward, Quaternion.Euler(Vector3.up * 10), Vector3.one*0.8f, false));
+		StaticMNode body = new StaticMNode(Vector3.one);
+		ThrusterMNode limb = new ThrusterMNode(new Vector3(0.5f, 0.5f, 0.5f));
+		body.AddConnection(new MConnection(limb, Vector3.left, Quaternion.Euler(Vector3.up * 45), Vector3.one, true, 1));
+		body.AddConnection(new MConnection(limb, Vector3.right, Quaternion.Euler(Vector3.up * -45), Vector3.one, false, 1));
+		
+		body.AddConnection(new MConnection(body, Vector3.forward, Quaternion.Euler(Vector3.up * 40), Vector3.one*0.8f, true, 6));
+		//body.AddConnection(new MConnection(body, Vector3.forward, Quaternion.Euler(Vector3.left * 40), Vector3.one*0.8f, true, 6));
+		
 		
 		//Spawn the tree0
-		MNode.SpawnMorphology(body, transform.position, Quaternion.identity, Vector3.one);
+		MNode.SpawnMorphology(body, transform.position, Quaternion.identity, Vector3.one, 0);
 	
-	
-		Debug.Break();
 	}
 	
 	// Update is called once per frame
