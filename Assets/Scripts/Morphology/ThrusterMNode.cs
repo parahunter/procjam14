@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ThrusterMNode : MNode 
 {
-	public ThrusterMNode(Vector3 _scale) : base(_scale)
+	public ThrusterMNode(Vector3 _scale, GNode myGnode) : base(_scale)
 	{
 	
 	}
@@ -11,5 +11,10 @@ public class ThrusterMNode : MNode
 	public override GameObject GetPrefab ()
 	{
 		return PrefabContainer.instance.ThrusterAppendage;
+	}
+
+	public override MNode CreateNode(Vector3 scale, GNode myGNode)
+	{
+		return new StaticMNode(scale, myGNode);
 	}
 }

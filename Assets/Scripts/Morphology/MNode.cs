@@ -8,10 +8,12 @@ public abstract class MNode
 
 	public Vector3 scale = Vector3.one;
 	public List<MConnection> connections = new List<MConnection>();
+	public GNode myGNode;
 
-	public MNode(Vector3 _scale)
+	public MNode(Vector3 _scale, GNode myGNode)
 	{
-		scale = _scale;
+		this.scale = _scale;
+		this.myGNode = myGNode;
 	}
 
 	public void AddConnection(MConnection c)
@@ -21,55 +23,33 @@ public abstract class MNode
 
 	public abstract GameObject GetPrefab();
 
-	public static void SpawnMorphology(MNode rootNode, Vector3 pos, Quaternion rot, Vector3 scaleModifier, int count, GameObject parent = null)
+	public abstract MNode CreateNode(Vector3 scale, GNode myGnode);
+
+	public static void SpawnMorphology(MNode rootNode, Vector3 pos, Quaternion rot, Vector3 scaleModifier, GameObject parent = null)
 	{
-		MNode thisNode = rootNode;
 		GameObject thisGo = (GameObject)GameObject.Instantiate(rootNode.GetPrefab(), pos, Quaternion.identity);
-		thisGo.name = count.ToString();
 
 		thisGo.transform.localScale = new Vector3(rootNode.scale.x * scaleModifier.x,
 												  rootNode.scale.y * scaleModifier.y,
-												  rootNode.scale.z * scaleModifier.z);
-		 
-		              
+												  rootNode.scale.z * scaleModifier.z);	              
 		                                        
 		if(parent != null)
 		{
 			thisGo.GetComponent<Appendage>().Attach(parent.transform, pos, rot);
 		}
 		
-		foreach(MConnection mc in thisNode.connections)
+		foreach(MConnection mc in rootNode.connections)
 		{	
 			Vector3 scaleFactor = new Vector3(scaleModifier.x * mc.scaleModifier.x,
 											  scaleModifier.y * mc.scaleModifier.y,
 											  scaleModifier.z * mc.scaleModifier.z);
 				
 			//If target is itself add one to iterations var. If more than recursivelimit spawn the terminalNode if != null
-			if(mc.target == rootNode)			
+			if(mc.target != rootNode) //No recursion (self connections) allowed in Phenotype definition
 			{
-				if(mc.iterations < mc.recursiveLimit)
-				{
-					mc.iterations++;
-					count++;
-					MNode.SpawnMorphology(mc.target, mc.position, mc.rotation, scaleFactor, count, thisGo);
-					
-				}
-				else if(mc.terminalNode != null)
-				{
-					count++;
-					MNode.SpawnMorphology(mc.terminalNode, mc.position, mc.rotation, scaleFactor, count, thisGo);
-				}
-			}
-			else
-			{
-				count++;
-				MNode.SpawnMorphology(mc.target, mc.position, mc.rotation, scaleFactor, count, thisGo);
+				MNode.SpawnMorphology(mc.target, mc.position, mc.rotation, scaleFactor, thisGo);
 			}
 		}
 		
 	}
-
-
-
-
 }
