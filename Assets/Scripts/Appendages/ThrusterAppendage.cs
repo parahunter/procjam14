@@ -9,19 +9,23 @@ public class ThrusterAppendage : Appendage
 	
 	bool keyDown = false;
 	public ParticleSystem particles;
-			
+	
+	float scale;
+	
 	// Use this for initialization
 	void Start () 
 	{
 		AssignButton(OnKeyDown, OnKeyUp, button);
 		
 		particles.enableEmission = false;
+		scale = transform.lossyScale.x;
+		particles.startSize = particles.startSize * scale;
 	}
 	
 	void FixedUpdate()
 	{
 		if(keyDown)
-			rigidbody.AddForce(-transform.forward * baseForce);
+			rigidbody.AddForce(-transform.forward * baseForce * scale);
 	}
 	
 	void OnKeyDown()

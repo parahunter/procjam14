@@ -15,6 +15,9 @@ public class InputManager : MonoBehaviour
 	public event System.Action leftKeyDown;
 	public event System.Action leftKeyUp;
 	
+	public event System.Action<float> verticalAxis;
+	public event System.Action<float> horizontalAxis;
+    
 	
 	public static InputManager instance
 	{
@@ -50,6 +53,12 @@ public class InputManager : MonoBehaviour
 			leftKeyDown();
 		if(Input.GetButtonUp("Left") && leftKeyUp != null)
 			leftKeyUp();					 		 
-					 		 					 		 					 		 
+		
+		if(verticalAxis != null)
+			verticalAxis( Input.GetAxis("Vertical") );
+		
+		if(horizontalAxis != null)
+			horizontalAxis( Input.GetAxis("Horizontal") );		 		 					 		 					 		 			 		 					 		 					 		 
+					 		 					 		 					 		 			 		 					 		 					 		 			 		 					 		 					 		 
 	}
 }
