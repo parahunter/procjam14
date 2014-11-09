@@ -8,11 +8,20 @@ public class MorphologyTester : MonoBehaviour
 	{
 		//Defining a Morphology tree manually using Nodes and Connections
 		StaticMNode body = new StaticMNode(Vector3.one);
-		ThrusterMNode limb = new ThrusterMNode(new Vector3(0.5f, 0.5f, 0.5f));
-		body.AddConnection(new MConnection(limb, Vector3.left, Quaternion.Euler(Vector3.up * 45), Vector3.one, true, 1));
-		body.AddConnection(new MConnection(limb, Vector3.right, Quaternion.Euler(Vector3.up * -45), Vector3.one, false, 1));
+		StaticMNode limp = new StaticMNode(Vector3.one * 0.5f);
+		
+		ThrusterMNode thruster = new ThrusterMNode(new Vector3(0.5f, 0.5f, 0.5f));
+		
+		limp.AddConnection(new MConnection(thruster, Vector3.forward, Quaternion.Euler(Vector3.up * 0), Vector3.one, false, 1));
+		body.AddConnection(new MConnection(limp, Vector3.right, Quaternion.Euler(Vector3.up * 0), Vector3.one, false, 1));
 		
 		body.AddConnection(new MConnection(body, Vector3.forward, Quaternion.Euler(Vector3.zero), Vector3.one*0.8f, true, 4));
+																																																										
+		//body.AddConnection(new MConnection(limb, Vector3.left, Quaternion.Euler(Vector3.up * 45), Vector3.one, true, 1));
+		//body.AddConnection(new MConnection(limb, Vector3.right, Quaternion.Euler(Vector3.up * -45), Vector3.one, false, 1));
+		
+		
+		
 		//body.AddConnection(new MConnection(body, Vector3.forward, Quaternion.Euler(Vector3.left * 40), Vector3.one*0.8f, true, 6));
 		
 		
