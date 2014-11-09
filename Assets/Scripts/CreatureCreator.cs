@@ -46,7 +46,7 @@ public class CreatureCreator : MonoBehaviour {
 		for(int i=0; i<nodes; i++)
 		{
 			//choose random scale and recursionLimit
-			float ts = Random.Range(0.5f, scaleRange);
+			float ts = Random.Range(1.0f-scaleRange, 1.0f+scaleRange);
 			Vector3 scale = new Vector3(ts, ts, ts);
 			int recursionLimit = recursionLimitRange[Random.Range(0, recursionLimitRange.Length)];
 
@@ -57,7 +57,7 @@ public class CreatureCreator : MonoBehaviour {
 				//choose int 0-3 for the input
 
 			//choose type (switch)
-			switch(Random.Range(0, 2))
+			switch(Random.Range(0, 3))
 			{
 				//create GNode
 			case 0: //static
@@ -65,11 +65,11 @@ public class CreatureCreator : MonoBehaviour {
 				break;
 
 			case 1: //thruster
-				dna.Add(new ThrusterGNode(scale, recursionLimit));
+				dna.Add(new ThrusterGNode(scale, recursionLimit, inputListener));
 				break;
 
 			case 2: //hinge
-				//dna.Add(new HingeGNode(scale, recursionLimit));
+				dna.Add(new HingeGNode(scale, recursionLimit, inputListener));
 				break;
 			}
 		}
@@ -90,7 +90,7 @@ public class CreatureCreator : MonoBehaviour {
 
 				Vector3 pos = new Vector3(Random.Range(-posRange, posRange), Random.Range(-posRange, posRange), Random.Range(-posRange, posRange));
 				Quaternion rot = Quaternion.Euler(new Vector3(Random.Range(-rotRange, rotRange), Random.Range(-rotRange, rotRange), Random.Range(-rotRange, rotRange)));
-				float ts = Random.Range(-scaleRange, scaleRange);
+				float ts = Random.Range(1.0f-scaleRange, 1.0f+scaleRange);
 				Vector3 scale = new Vector3(ts, ts, ts);
 
 				//choose if adding a terminal limb

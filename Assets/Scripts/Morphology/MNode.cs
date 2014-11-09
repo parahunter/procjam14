@@ -29,7 +29,7 @@ public abstract class MNode
 	public abstract MNode CreateNode(Vector3 scale, GNode myGnode, int recursionCounter);
 	public abstract void ConfigureAppendage(Appendage appendage);
 	
-	public static void SpawnMorphology(MNode rootNode, Vector3 pos, Quaternion rot, Vector3 scaleModifier, GameObject parent = null)
+	public static GameObject SpawnMorphology(MNode rootNode, Vector3 pos, Quaternion rot, Vector3 scaleModifier, GameObject parent = null)
 	{
 		GameObject thisGo = (GameObject)GameObject.Instantiate(rootNode.GetPrefab(), pos, Quaternion.identity);
 		thisGo.transform.localScale = new Vector3(rootNode.scale.x * scaleModifier.x,
@@ -55,6 +55,6 @@ public abstract class MNode
 				MNode.SpawnMorphology(mc.target, mc.position, mc.rotation, scaleFactor, thisGo);
 			}
 		}
-		
+		return thisGo;
 	}
 }

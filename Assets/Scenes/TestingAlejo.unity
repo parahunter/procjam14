@@ -358,11 +358,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96ace2266662c1c4a96af6da7c3a17e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 0
+  seed: 225773441
   autoSeed: 1
   minGNodes: 3
   maxGNodes: 20
-  scaleRange: 1.5
+  scaleRange: .100000001
   posRange: 1
   rotRange: 45
   recursionLimitRange: 000000000000000001000000010000000100000002000000030000000400000005000000060000000700000008000000
