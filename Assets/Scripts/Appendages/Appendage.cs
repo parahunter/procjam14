@@ -3,7 +3,13 @@ using System.Collections;
 
 public class Appendage : MonoBehaviour 
 {
-	public int buttonOrAxis;
+	public int _fuckThis;
+
+	public int buttonOrAxis
+	{
+		get {return _fuckThis;}
+		set {_fuckThis = value;}
+	}
 
 	public virtual void Attach(Transform child, Vector3 pos, Quaternion rot)
 	{
@@ -24,8 +30,8 @@ public class Appendage : MonoBehaviour
 				InputManager.instance.upKeyUp += onButtonUp;
 				break;
 			case 1:
-				InputManager.instance.leftKeyDown += onButtonDown;
-				InputManager.instance.leftKeyUp += onButtonUp;
+				InputManager.instance.rightKeyDown += onButtonDown;
+				InputManager.instance.rightKeyUp += onButtonUp;
 				break;
 			case 2:
 				InputManager.instance.downKeyDown += onButtonDown;
