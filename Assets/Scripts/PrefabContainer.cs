@@ -5,6 +5,7 @@ public class PrefabContainer : MonoBehaviour
 {
 	public GameObject ThrusterAppendage;
 	public GameObject StaticAppendage;
+	public GameObject HingeAppendage;
 	
 	public static PrefabContainer instance
 	{

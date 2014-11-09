@@ -35,7 +35,7 @@ public abstract class MNode
 		                                        
 		if(parent != null)
 		{
-			thisGo.GetComponent<Appendage>().Attach(parent.transform, pos, rot);
+			parent.GetComponent<Appendage>().Attach(thisGo.transform, pos, rot);
 		}
 		
 		foreach(MConnection mc in thisNode.connections)

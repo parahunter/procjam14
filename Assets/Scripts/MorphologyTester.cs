@@ -12,7 +12,7 @@ public class MorphologyTester : MonoBehaviour
 		body.AddConnection(new MConnection(limb, Vector3.left, Quaternion.Euler(Vector3.up * 45), Vector3.one, true, 1));
 		body.AddConnection(new MConnection(limb, Vector3.right, Quaternion.Euler(Vector3.up * -45), Vector3.one, false, 1));
 		
-		body.AddConnection(new MConnection(body, Vector3.forward, Quaternion.Euler(Vector3.up * 40), Vector3.one*0.8f, true, 6));
+		body.AddConnection(new MConnection(body, Vector3.forward, Quaternion.Euler(Vector3.zero), Vector3.one*0.8f, true, 4));
 		//body.AddConnection(new MConnection(body, Vector3.forward, Quaternion.Euler(Vector3.left * 40), Vector3.one*0.8f, true, 6));
 		
 		
