@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StaticMNode : MNode 
-{
-	
-	public StaticMNode(Vector3 _scale, GNode myGNode) : base(_scale)
+public class StaticGNode : GNode {
+		
+	public StaticGNode(Vector3 _scale) : base(_scale)
 	{
 		
 	}
-
+	
 	public override GameObject GetPrefab ()
 	{
 		return PrefabContainer.instance.StaticAppendage;
@@ -18,4 +17,10 @@ public class StaticMNode : MNode
 	{
 		return new StaticMNode(scale, myGNode);
 	}
+	/*
+	public override MNode CopyNode(MNode source)
+	{
+		return new StaticMNode(Vector3.one); // TEMP!!!
+	}*/
+
 }
