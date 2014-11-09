@@ -4,7 +4,7 @@ using System.Collections;
 public class StaticMNode : MNode 
 {
 	
-	public StaticMNode(Vector3 _scale, GNode myGNode) : base(_scale)
+	public StaticMNode(Vector3 _scale, GNode myGNode, int recursionCounter) : base(_scale, myGNode, recursionCounter)
 	{
 		
 	}
@@ -14,8 +14,8 @@ public class StaticMNode : MNode
 		return PrefabContainer.instance.StaticAppendage;
 	}
 
-	public override MNode CreateNode(Vector3 scale, GNode myGNode)
+	public override MNode CreateNode(Vector3 scale, GNode myGNode, int recursionCounter)
 	{
-		return new StaticMNode(scale, myGNode);
+		return new StaticMNode(scale, myGNode, recursionCounter);
 	}
 }

@@ -24,19 +24,24 @@ public class GConnection
 		terminalNode = null;
 		this.recursiveLimit = recursiveLimit;
 	}
-	
-	public GConnection MakeCopy()
-	{
-		return new GConnection(target, -position, rotation, -scaleModifier, false, recursiveLimit);
-	}
 
-	public GConnection(GNode _target, Vector3 _position, Quaternion _rotation, Vector3 _scaleModifier, bool _reflection, GNode _terminalNode)
+	public GConnection(GNode _target, Vector3 _position, Quaternion _rotation, Vector3 _scaleModifier, bool _reflection, int recursiveLimit, GNode _terminalNode)
 	{
 		target = _target;
 		position = _position;
 		rotation = _rotation;
 		scaleModifier = _scaleModifier;
 		reflection = _reflection;
+		this.recursiveLimit = recursiveLimit;
+		
 		terminalNode = _terminalNode;
 	}
+	
+	
+	public GConnection MakeCopy()
+	{
+		return new GConnection(target, -position, rotation, -scaleModifier, false, recursiveLimit);
+	}
+
+
 }

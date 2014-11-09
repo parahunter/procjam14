@@ -9,11 +9,13 @@ public abstract class MNode
 	public Vector3 scale = Vector3.one;
 	public List<MConnection> connections = new List<MConnection>();
 	public GNode myGNode;
+	public int recursionCounter;
 
-	public MNode(Vector3 _scale, GNode myGNode)
+	public MNode(Vector3 _scale, GNode myGNode, int recursionCounter)
 	{
 		this.scale = _scale;
 		this.myGNode = myGNode;
+		this.recursionCounter = recursionCounter;
 	}
 
 	public void AddConnection(MConnection c)
@@ -23,7 +25,7 @@ public abstract class MNode
 
 	public abstract GameObject GetPrefab();
 
-	public abstract MNode CreateNode(Vector3 scale, GNode myGnode);
+	public abstract MNode CreateNode(Vector3 scale, GNode myGnode, int recursionCounter);
 
 	public static void SpawnMorphology(MNode rootNode, Vector3 pos, Quaternion rot, Vector3 scaleModifier, GameObject parent = null)
 	{

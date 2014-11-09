@@ -11,9 +11,9 @@ public class MConnection
 	public Quaternion rotation;
 	public Vector3 scaleModifier;
 	public bool reflection = false;
-	public MNode terminalNode;
 	public int recursiveLimit = 0; //How many times the node can spawn itself
 	public bool defined = false;
+	public GConnection myGConnection;
 	
 	public MConnection(MNode _target, Vector3 _position, Quaternion _rotation, Vector3 _scaleModifier, bool _reflection, int recursiveLimit)
 	{
@@ -22,7 +22,6 @@ public class MConnection
 		rotation = _rotation;
 		scaleModifier = _scaleModifier;
 		reflection = _reflection;
-		terminalNode = null;
 		this.recursiveLimit = recursiveLimit;
 	}
 	
@@ -31,25 +30,23 @@ public class MConnection
 		return new MConnection(target, -position, rotation, -scaleModifier, false, recursiveLimit);
 	}
 
-	public MConnection(MNode _target, Vector3 _position, Quaternion _rotation, Vector3 _scaleModifier, bool _reflection, MNode _terminalNode)
+	public MConnection(MNode _target, Vector3 _position, Quaternion _rotation, Vector3 _scaleModifier, bool _reflection)
 	{
 		target = _target;
 		position = _position;
 		rotation = _rotation;
 		scaleModifier = _scaleModifier;
 		reflection = _reflection;
-		terminalNode = _terminalNode;
 	}
 
-	public MConnection(GConnection gc)
+	public MConnection(GConnection gc, MNode target)
 	{
-		target = gc.target;
+		this.target = target;
+		myGConnection = gc;
 		position = gc.position;
 		rotation = gc.rotation;
 		scaleModifier = gc.scaleModifier;
 		reflection = gc.reflection;
-		terminalNode = gc.terminalNode;
-		this.recursiveLimit = gc.recursiveLimit;
 	}
 
 }
