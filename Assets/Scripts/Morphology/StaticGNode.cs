@@ -8,12 +8,7 @@ public class StaticGNode : GNode
 	{
 
 	}
-			
-	public override GameObject GetPrefab ()
-	{
-		return PrefabContainer.instance.StaticAppendage;
-	}
-
+	
 	public override MNode CreateNode(Vector3 scale, GNode myGNode, int recursionCounter)
 	{
 		return new StaticMNode(scale, myGNode, recursionCounter);

@@ -21,8 +21,6 @@ public abstract class GNode
 		connections.Add(c);
 	}
 	
-	public abstract GameObject GetPrefab();
-
 	public abstract MNode CreateNode(Vector3 scale, GNode myGNode, int recursionCounter);
 
 	public static MNode DefineMorphology(GNode rootNode, Vector3 pos, Quaternion rot, Vector3 scaleModifier)

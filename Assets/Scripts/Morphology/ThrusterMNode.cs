@@ -3,9 +3,16 @@ using System.Collections;
 
 public class ThrusterMNode : MNode 
 {
-	public ThrusterMNode(Vector3 _scale, GNode myGnode, int recursionLimit) : base(_scale, myGnode, recursionLimit)
-	{
+	int button;
 	
+	public ThrusterMNode(Vector3 _scale, GNode myGnode, int recursionLimit, int button) : base(_scale, myGnode, recursionLimit)
+	{
+		this.button = button;
+	}
+	
+	public override void ConfigureAppendage (Appendage appendage)
+	{
+		appendage.buttonOrAxis = button;
 	}
 	
 	public override GameObject GetPrefab ()
@@ -15,6 +22,6 @@ public class ThrusterMNode : MNode
 
 	public override MNode CreateNode(Vector3 scale, GNode myGNode, int recursionCounter)
 	{
-		return new ThrusterMNode(scale, myGNode, recursionCounter);
+		return new ThrusterMNode(scale, myGNode, recursionCounter, button);
 	}
 }

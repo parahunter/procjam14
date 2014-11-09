@@ -5,7 +5,6 @@ public class HingeAppendage : Appendage
 {
 	public HingeJoint joint;
 	
-	public int axis = 0;
 	float input;
 	public float motorForce = 500;
 	public float motorTargetVelocity = 10;
@@ -13,7 +12,7 @@ public class HingeAppendage : Appendage
 	
 	void Start()
 	{
-		AssignAxis(OnInput, axis);
+		AssignAxis(OnInput, buttonOrAxis);
 		scale = transform.lossyScale.x;
 	}
 	

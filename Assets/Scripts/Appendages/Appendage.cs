@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Appendage : MonoBehaviour 
 {
+	public int buttonOrAxis;
 
 	public virtual void Attach(Transform child, Vector3 pos, Quaternion rot)
 	{

@@ -8,6 +8,11 @@ public class StaticMNode : MNode
 	{
 		
 	}
+	
+	public override void ConfigureAppendage (Appendage appendage)
+	{
+		
+	}
 
 	public override GameObject GetPrefab ()
 	{

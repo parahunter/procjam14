@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public abstract class MNode
 {
+	public int axis;
 	//Morphology Node
 
 	public Vector3 scale = Vector3.one;
@@ -26,18 +27,20 @@ public abstract class MNode
 	public abstract GameObject GetPrefab();
 
 	public abstract MNode CreateNode(Vector3 scale, GNode myGnode, int recursionCounter);
+	public abstract void ConfigureAppendage(Appendage appendage);
 
 	public static void SpawnMorphology(MNode rootNode, Vector3 pos, Quaternion rot, Vector3 scaleModifier, GameObject parent = null)
 	{
 		GameObject thisGo = (GameObject)GameObject.Instantiate(rootNode.GetPrefab(), pos, Quaternion.identity);
-
 		thisGo.transform.localScale = new Vector3(rootNode.scale.x * scaleModifier.x,
 												  rootNode.scale.y * scaleModifier.y,
 												  rootNode.scale.z * scaleModifier.z);	              
 		                                        
 		if(parent != null)
 		{
-			parent.GetComponent<Appendage>().Attach(thisGo.transform, pos, rot);
+		    Appendage appendage = parent.GetComponent<Appendage>();
+		    appendage.Attach(thisGo.transform, pos, rot);
+			rootNode.ConfigureAppendage(appendage);
 		}
 		
 		foreach(MConnection mc in rootNode.connections)

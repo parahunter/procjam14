@@ -3,8 +3,6 @@ using System.Collections;
 
 public class ThrusterAppendage : Appendage
 {
-	public int button = 0;
-	
 	public float baseForce = 50;
 	
 	bool keyDown = false;
@@ -15,7 +13,7 @@ public class ThrusterAppendage : Appendage
 	// Use this for initialization
 	void Start () 
 	{
-		AssignButton(OnKeyDown, OnKeyUp, button);
+		AssignButton(OnKeyDown, OnKeyUp, buttonOrAxis);
 		
 		particles.enableEmission = false;
 		scale = transform.lossyScale.x;
