@@ -3,9 +3,14 @@ using System.Collections;
 
 public class Appendage : MonoBehaviour 
 {
-	public int buttonOrAxis;	
+	public int buttonOrAxis;
+	public Transform attachTarget;
 
 	public virtual void DoInputAssign()
+	{
+
+	}
+	public virtual void SetScale(Vector3 newScale)
 	{
 
 	}
@@ -14,18 +19,19 @@ public class Appendage : MonoBehaviour
 	{
 		child.parent = transform;
 		//position is passed to surfacePointFinder as a local position of this appendage. It returns a point and a normal (Raycasthit info)
-		RaycastHit surfacePoint = MTools.SurfacePoint(this.gameObject, pos);
+		RaycastHit surfacePoint = MTools.SurfacePoint(attachTarget.gameObject, pos);
 
 		//Child is located at the surfacePoint position
-		child.transform.position = pos;
-		//child.transform.localPosition = surfacePoint.point;
+		//child.transform.position = pos;
+		child.transform.position = surfacePoint.point;
 
 		//Rotation is the surfacePoint normal + the rotation defined in the node
-		child.transform.localRotation = rot;
-		//child.transform.up = -surfacePoint.normal;
-		//child.transform.rotation *= rot;
+		//child.transform.localRotation = rot;
+		child.transform.up = surfacePoint.normal;
+		child.transform.rotation *= rot;
 		
 		FixedJoint joint = gameObject.AddComponent<FixedJoint>();
+		//joint.enableCollision = true;
 		joint.connectedBody = child.rigidbody;
 	}
 	

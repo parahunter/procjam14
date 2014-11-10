@@ -358,17 +358,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96ace2266662c1c4a96af6da7c3a17e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 225773441
+  seed: 716343703
   autoSeed: 1
-  minGNodes: 3
-  maxGNodes: 20
+  minGNodes: 2
+  maxGNodes: 4
   scaleRange: .100000001
-  posRange: 1
-  rotRange: 45
+  posRange: 5
+  rotRange: 10
   recursionLimitRange: 000000000000000001000000010000000100000002000000030000000400000005000000060000000700000008000000
-  inputRange: 90
-  maxConnections: 3
-  terminalLimbRange: 50
+  inputRange: 95
+  maxConnections: 4
+  terminalLimbRange: 80
 --- !u!4 &447229950
 Transform:
   m_ObjectHideFlags: 0
@@ -693,7 +693,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Input: ASWD or Arrow Keys
+  m_Text: 'Input: ASWD or Arrow Keys + Spacebar
 
     Reset: R'
 --- !u!222 &679738886

@@ -50,6 +50,7 @@ public class CreatureCreator : MonoBehaviour {
 			//choose random scale and recursionLimit
 			float ts = Random.Range(1.0f-scaleRange, 1.0f+scaleRange);
 			Vector3 scale = new Vector3(ts, ts, ts);
+			//Vector3 scale = new Vector3(1.0f-scaleRange, 1.0f-scaleRange, 1.0f-scaleRange);
 			int recursionLimit = recursionLimitRange[Random.Range(0, recursionLimitRange.Length)];
 
 			//choose if adding input listener
@@ -65,7 +66,7 @@ public class CreatureCreator : MonoBehaviour {
 
 			case 1: //thruster
 				if(Random.Range(0, 100) < inputRange)
-					inputListener = Random.Range(4, 5); //choose int 0-4 to select an input button
+					inputListener = Random.Range(0, 5); //choose int 0-4 to select an input button
 				dna.Add(new ThrusterGNode(scale, recursionLimit, inputListener));
 				break;
 
@@ -96,6 +97,7 @@ public class CreatureCreator : MonoBehaviour {
 				Quaternion rot = Quaternion.Euler(new Vector3(Random.Range(-rotRange, rotRange), Random.Range(-rotRange, rotRange), Random.Range(-rotRange, rotRange)));
 				float ts = Random.Range(1.0f-scaleRange, 1.0f+scaleRange);
 				Vector3 scale = new Vector3(ts, ts, ts);
+				//Vector3 scale = new Vector3(1.0f-scaleRange, 1.0f-scaleRange, 1.0f-scaleRange);
 
 				//choose if adding a terminal limb
 				GNode terminalLimb = null;
@@ -112,6 +114,7 @@ public class CreatureCreator : MonoBehaviour {
 		}
 
 		//Define morphology considering the first one is the root
+		MNode.ResetKillSwitch();
 		MNode root = GNode.DefineMorphology(dna[0], transform.position, Quaternion.identity, Vector3.one);
 		//Spawn morphology				
 		creature = MNode.SpawnMorphology(root, transform.position, Quaternion.identity, Vector3.one);

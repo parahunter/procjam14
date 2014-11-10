@@ -14,14 +14,20 @@ public class ThrusterAppendage : Appendage
 	void Start () 
 	{		
 		particles.enableEmission = false;
-		scale = transform.lossyScale.x;
 		particles.startSize = particles.startSize * scale;
 	}
-	
+
+	public override void SetScale(Vector3 newScale)
+	{
+		float scaleAverage = (newScale.x + newScale.y + newScale.z)/3;
+		transform.localScale = new Vector3(scaleAverage, scaleAverage, scaleAverage);
+		scale = transform.lossyScale.x;
+	}
+
 	void FixedUpdate()
 	{
 		if(keyDown)
-			rigidbody.AddForce(-transform.forward * baseForce * scale);
+			rigidbody.AddForce(-transform.up * baseForce * scale);
 	}
 	
 	void OnKeyDown()

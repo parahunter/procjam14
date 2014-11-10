@@ -12,6 +12,9 @@ public abstract class MNode
 	public GNode myGNode;
 	public int recursionCounter;
 
+	public static int totalCount = 0;
+	public const int maxKillSwitch = 50;
+
 	public MNode(Vector3 _scale, GNode myGNode, int recursionCounter)
 	{
 		this.scale = _scale;
@@ -29,18 +32,32 @@ public abstract class MNode
 	public abstract MNode CreateNode(Vector3 scale, GNode myGnode, int recursionCounter);
 	public abstract void ConfigureAppendage(Appendage appendage);
 	
+	public static void ResetKillSwitch()
+	{
+		totalCount = 0;
+	}
+
 	public static GameObject SpawnMorphology(MNode rootNode, Vector3 pos, Quaternion rot, Vector3 scaleModifier, GameObject parent = null)
 	{
 		GameObject thisGo = (GameObject)GameObject.Instantiate(rootNode.GetPrefab(), pos, Quaternion.identity);
-		thisGo.transform.localScale = new Vector3(rootNode.scale.x * scaleModifier.x,
-												  rootNode.scale.y * scaleModifier.y,
-												  rootNode.scale.z * scaleModifier.z);	              
-		                                        
+		Appendage thisGoAppendage = thisGo.GetComponent<Appendage>();
+
+		totalCount++;
+		if(totalCount >= maxKillSwitch){
+			//KillSwitch because we are not controling long links on the GNodes generation
+			Debug.Log("Spawn Morphology process killed. "+ maxKillSwitch+" nodes count reached");
+			return thisGo; 
+		}
+
+		rootNode.ConfigureAppendage(thisGoAppendage);
+		thisGoAppendage.SetScale(new Vector3(rootNode.scale.x * scaleModifier.x,
+		                                     rootNode.scale.y * scaleModifier.y,
+		                                     rootNode.scale.z * scaleModifier.z));
+
 		if(parent != null)
 		{
 		    Appendage appendage = parent.GetComponent<Appendage>();
 		    appendage.Attach(thisGo.transform, pos, rot);
-			rootNode.ConfigureAppendage(thisGo.GetComponent<Appendage>());
 		}
 		
 		foreach(MConnection mc in rootNode.connections)
