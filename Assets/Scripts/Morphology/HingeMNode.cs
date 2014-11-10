@@ -17,6 +17,7 @@ public class HingeMNode : MNode
 	public override void ConfigureAppendage (Appendage appendage)
 	{
 		appendage.buttonOrAxis = axis;
+		appendage.DoInputAssign();
 	}
 	
 	public override MNode CreateNode(Vector3 scale, GNode myGNode, int recursionCounter)

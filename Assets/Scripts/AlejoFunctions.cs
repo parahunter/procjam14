@@ -16,7 +16,9 @@ public class AlejoFunctions : MonoBehaviour {
 	// Update is called once per frame
 	void Update()
 	{
-		child.position = SurfacePoint(testSubject.gameObject, handler.localPosition);
+		RaycastHit surfacePoint = SurfacePoint(testSubject.gameObject, handler.localPosition);
+		child.position = surfacePoint.point;
+		child.up = surfacePoint.normal;
 	
 	}
 
@@ -26,7 +28,7 @@ public class AlejoFunctions : MonoBehaviour {
 	}
 
 
-	Vector3 SurfacePoint(GameObject root, Vector3 anchor)
+	RaycastHit SurfacePoint(GameObject root, Vector3 anchor)
 	{
 		Collider thisCollider = root.GetComponent<Collider>();
 		if(thisCollider != null)
@@ -37,15 +39,18 @@ public class AlejoFunctions : MonoBehaviour {
 			//Vector3 origin = (anchor - dir) * rayMagnitude;
 			Vector3 origin = anchor + dir * rayMagnitude;
 
-			RaycastHit hitInfo;
-
 			Debug.DrawRay(origin, -dir, Color.blue);
+
+			RaycastHit hitInfo;
 			if(thisCollider.Raycast(new Ray(origin, -dir), out hitInfo, 200))
 			{
-				return hitInfo.point;
+				return hitInfo;
 			}
 		}
-		return Vector3.zero;
+		RaycastHit noInfo = new RaycastHit();
+		noInfo.point = Vector3.zero;
+		noInfo.normal = Vector3.zero;
+		return noInfo;
 	}
 
 }

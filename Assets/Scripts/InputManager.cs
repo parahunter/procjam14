@@ -17,6 +17,9 @@ public class InputManager : MonoBehaviour
 	
 	public event System.Action<float> verticalAxis;
 	public event System.Action<float> horizontalAxis;
+
+	public event System.Action spaceKeyDown;
+	public event System.Action spaceKeyUp;
     
 	
 	public static InputManager instance
@@ -30,7 +33,28 @@ public class InputManager : MonoBehaviour
 	{
 		instance = this;
 	}
-	
+
+	public void cleanEvents()
+	{
+		upKeyDown = null;
+		upKeyUp = null;
+		
+		rightKeyDown = null;
+		rightKeyUp = null;
+		
+		downKeyDown = null;
+		downKeyUp = null;
+		
+		leftKeyDown = null;
+		leftKeyUp = null;
+		
+		verticalAxis = null;
+		horizontalAxis = null;
+		
+		spaceKeyDown = null;
+		spaceKeyUp = null;
+	}
+
 	// Update is called once per frame
 	void Update () 
 	{
@@ -58,7 +82,11 @@ public class InputManager : MonoBehaviour
 			verticalAxis( Input.GetAxis("Vertical") );
 		
 		if(horizontalAxis != null)
-			horizontalAxis( Input.GetAxis("Horizontal") );		 		 					 		 					 		 			 		 					 		 					 		 
-					 		 					 		 					 		 			 		 					 		 					 		 			 		 					 		 					 		 
+			horizontalAxis( Input.GetAxis("Horizontal") );
+
+		if(Input.GetButtonDown("Jump") && spaceKeyDown != null)
+			spaceKeyDown();
+		if(Input.GetButtonUp("Jump") && spaceKeyUp != null)
+			spaceKeyUp();					 		 					 		 					 		 			 		 					 		 					 		 			 		 					 		 					 		 
 	}
 }

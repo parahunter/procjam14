@@ -31,6 +31,7 @@ public class CreatureCreator : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.N))
 		{
 			Destroy(creature);
+			InputManager.instance.cleanEvents();
 			if(autoSeed) seed = Random.Range(0, int.MaxValue);
 			SpawnCreature(seed);
 		}
@@ -42,6 +43,7 @@ public class CreatureCreator : MonoBehaviour {
 		Random.seed = seed;
 
 		int nodes = Random.Range(minGNodes, maxGNodes);
+		int nodeType = 0; //the first is always staticGNode
 
 		for(int i=0; i<nodes; i++)
 		{
@@ -52,12 +54,9 @@ public class CreatureCreator : MonoBehaviour {
 
 			//choose if adding input listener
 			int inputListener = 10; //to reach the default case in the input assigner
-			if(Random.Range(0, 100) > inputRange)
-				inputListener = Random.Range(0, 5);
-				//choose int 0-3 for the input
 
 			//choose type (switch)
-			switch(Random.Range(0, 3))
+			switch(nodeType)
 			{
 				//create GNode
 			case 0: //static
@@ -65,22 +64,27 @@ public class CreatureCreator : MonoBehaviour {
 				break;
 
 			case 1: //thruster
+				if(Random.Range(0, 100) < inputRange)
+					inputListener = Random.Range(4, 5); //choose int 0-4 to select an input button
 				dna.Add(new ThrusterGNode(scale, recursionLimit, inputListener));
 				break;
 
 			case 2: //hinge
+				if(Random.Range(0, 100) < inputRange)
+					inputListener = Random.Range(0, 2); //choose int 0-1 to select an input axis
 				dna.Add(new HingeGNode(scale, recursionLimit, inputListener));
 				break;
 			}
+
+			nodeType = Random.Range(0, 3); //choosing the next nodeType
 		}
 
-		//iterate list of nodes adding connections
+		//choose how many connections for the first GNode
+		int nConnections = Random.Range(1, maxConnections);
 
+		//iterate list of nodes adding connections
 		foreach(GNode gNode in dna)
 		{
-			//choose how many connections
-			int nConnections = Random.Range(0, maxConnections);
-
 			//for loop
 			for(int i=0; i<nConnections; i++)
 			{
@@ -95,13 +99,16 @@ public class CreatureCreator : MonoBehaviour {
 
 				//choose if adding a terminal limb
 				GNode terminalLimb = null;
-				if(Random.Range(0, 100) > terminalLimbRange)
+				if(Random.Range(0, 100) < terminalLimbRange)
 					terminalLimb = dna[Random.Range(0, dna.Count)];
 					//choose terminar limb from nodes list
 
 				//Add connection to this GNode
 				gNode.AddConnection(new GConnection(target, pos, rot, scale, false, 0, terminalLimb));			                                  
 			}
+
+			//choose how many connections for the next GNode
+			nConnections = Random.Range(0, maxConnections);
 		}
 
 		//Define morphology considering the first one is the root

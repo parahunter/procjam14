@@ -13,6 +13,7 @@ public class ThrusterMNode : MNode
 	public override void ConfigureAppendage (Appendage appendage)
 	{
 		appendage.buttonOrAxis = button;
+		appendage.DoInputAssign();
 	}
 	
 	public override GameObject GetPrefab ()

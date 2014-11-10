@@ -12,7 +12,6 @@ public class HingeAppendage : Appendage
 	
 	void Start()
 	{
-		AssignAxis(OnInput, buttonOrAxis);
 		scale = transform.lossyScale.x;
 	}
 	
@@ -38,6 +37,11 @@ public class HingeAppendage : Appendage
 		motor.force = Mathf.Abs( input ) * motorForce * scale;
 		motor.targetVelocity = motorTargetVelocity * input;
 		joint.motor = motor;
+	}
+
+	public override void DoInputAssign()
+	{
+		AssignAxis(OnInput, buttonOrAxis);
 	}
 	
 }

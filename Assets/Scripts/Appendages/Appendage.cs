@@ -3,19 +3,27 @@ using System.Collections;
 
 public class Appendage : MonoBehaviour 
 {
-	public int _fuckThis;
+	public int buttonOrAxis;	
 
-	public int buttonOrAxis
+	public virtual void DoInputAssign()
 	{
-		get {return _fuckThis;}
-		set {_fuckThis = value;}
+
 	}
 
 	public virtual void Attach(Transform child, Vector3 pos, Quaternion rot)
 	{
 		child.parent = transform;
-		child.transform.localPosition = pos;
+		//position is passed to surfacePointFinder as a local position of this appendage. It returns a point and a normal (Raycasthit info)
+		RaycastHit surfacePoint = MTools.SurfacePoint(this.gameObject, pos);
+
+		//Child is located at the surfacePoint position
+		child.transform.position = pos;
+		//child.transform.localPosition = surfacePoint.point;
+
+		//Rotation is the surfacePoint normal + the rotation defined in the node
 		child.transform.localRotation = rot;
+		//child.transform.up = -surfacePoint.normal;
+		//child.transform.rotation *= rot;
 		
 		FixedJoint joint = gameObject.AddComponent<FixedJoint>();
 		joint.connectedBody = child.rigidbody;
@@ -41,7 +49,11 @@ public class Appendage : MonoBehaviour
 				InputManager.instance.leftKeyDown += onButtonDown;
 				InputManager.instance.leftKeyUp += onButtonUp;
 				break;
-			default:
+			case 4:
+				InputManager.instance.spaceKeyDown += onButtonDown;
+				InputManager.instance.spaceKeyUp += onButtonUp;
+				break;
+		default:
 				break;		
 		}			
 	}

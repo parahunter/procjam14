@@ -12,9 +12,7 @@ public class ThrusterAppendage : Appendage
 	
 	// Use this for initialization
 	void Start () 
-	{
-		AssignButton(OnKeyDown, OnKeyUp, buttonOrAxis);
-		
+	{		
 		particles.enableEmission = false;
 		scale = transform.lossyScale.x;
 		particles.startSize = particles.startSize * scale;
@@ -37,6 +35,10 @@ public class ThrusterAppendage : Appendage
 		keyDown = false;
 		particles.enableEmission = false;
 	}
-	
+
+	public override void DoInputAssign()
+	{
+		AssignButton(OnKeyDown, OnKeyUp, buttonOrAxis);
+	}
 	
 }

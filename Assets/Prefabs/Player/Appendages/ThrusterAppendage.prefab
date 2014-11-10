@@ -86,7 +86,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: .995999992, z: -1.995}
+  m_LocalPosition: {x: .286575794, y: -1.01000977, z: -1.1180383}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400004}
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20efa6c58bfa38c4299af67529baf068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyMapping: 0
+  _fuckThis: 0
   baseForce: 50
   particles: {fileID: 19800000}
 --- !u!136 &13600000
@@ -200,7 +200,7 @@ ParticleSystem:
   looping: 1
   prewarm: 0
   playOnAwake: 1
-  moveWithTransform: 1
+  moveWithTransform: 0
   InitialModule:
     enabled: 1
     startLifetime:
