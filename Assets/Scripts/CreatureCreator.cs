@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class CreatureCreator : MonoBehaviour {
 
@@ -15,7 +16,8 @@ public class CreatureCreator : MonoBehaviour {
 	public int inputRange = 50; //'percentage'
 	public int maxConnections = 3;
 	public int terminalLimbRange = 50;
-
+	public GameObject wintext;
+	public InputField seedText;
 	GameObject creature;
 
 	// Use this for initialization
@@ -23,18 +25,35 @@ public class CreatureCreator : MonoBehaviour {
 	{
 		if(autoSeed) seed = Random.Range(0, int.MaxValue);
 		SpawnCreature(seed);
+		seedText.textComponent.text = seed.ToString();
+		seedText.text = seed.ToString();
 	}
 	
 	// Update is called once per frame
 	void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.N))
+		if(Input.GetKeyDown(KeyCode.R))
 		{
 			Destroy(creature);
 			InputManager.instance.cleanEvents();
 			if(autoSeed) seed = Random.Range(0, int.MaxValue);
 			SpawnCreature(seed);
+			seedText.textComponent.text = seed.ToString();
+			seedText.text = seed.ToString();
+			wintext.SetActive(false);
 		}
+	}
+
+	public void SpawnSeed(string s)
+	{
+		int thisSeed = int.Parse(s);
+
+		Destroy(creature);
+		InputManager.instance.cleanEvents();
+		SpawnCreature(thisSeed);
+		seedText.textComponent.text = thisSeed.ToString();
+		seedText.text = thisSeed.ToString();
+		wintext.SetActive(false);
 	}
 
 	void SpawnCreature(int seed)

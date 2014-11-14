@@ -39,15 +39,15 @@ public abstract class MNode
 
 	public static GameObject SpawnMorphology(MNode rootNode, Vector3 pos, Quaternion rot, Vector3 scaleModifier, GameObject parent = null)
 	{
-		GameObject thisGo = (GameObject)GameObject.Instantiate(rootNode.GetPrefab(), pos, Quaternion.identity);
-		Appendage thisGoAppendage = thisGo.GetComponent<Appendage>();
-
 		totalCount++;
 		if(totalCount >= maxKillSwitch){
 			//KillSwitch because we are not controling long links on the GNodes generation
 			Debug.Log("Spawn Morphology process killed. "+ maxKillSwitch+" nodes count reached");
-			return thisGo; 
+			return parent;
 		}
+
+		GameObject thisGo = (GameObject)GameObject.Instantiate(rootNode.GetPrefab(), pos, Quaternion.identity);
+		Appendage thisGoAppendage = thisGo.GetComponent<Appendage>();
 
 		rootNode.ConfigureAppendage(thisGoAppendage);
 		thisGoAppendage.SetScale(new Vector3(rootNode.scale.x * scaleModifier.x,
